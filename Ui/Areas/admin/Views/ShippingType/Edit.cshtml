@@ -1,0 +1,45 @@
+﻿@using System.Globalization
+@using AddResourcessF.EditShippingType
+
+@model ShippingTypeDTOs
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@ResourceN.ShippingType</h4>
+        <p class="card-description">@ResourceN.ShippingType</p>
+        <form class="forms-sample"
+              method="post" enctype="multipart/form-data"
+              asp-controller="ShippingType" asp-action="Save" role="form">
+
+            <input asp-for="Id" type="hidden" />
+
+
+            <div class="form-group">
+                <label for="exampleInputName1">@ResourceN.ShippingNameA</label>
+                <input asp-for="ShippingTypeAname" type="text" class="form-control" id="exampleInputName1" placeholder="@ResourceN.ShippingNameA
+">
+                <span asp-validation-for="ShippingTypeAname" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail3">@ResourceN.ShippingNameE</label>
+                <input asp-for="ShippingTypeEname" type="text" class="form-control" id="exampleInputEmail3" placeholder="@ResourceN.ShippingNameE">
+                <span asp-validation-for="ShippingTypeEname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputName1">@ResourceN.ShippingFactor</label>
+                <input asp-for="ShippingFactor" type="number" class="form-control" id="exampleInputName1" placeholder="@ResourceN.ShippingFactor
+">
+                <span asp-validation-for="ShippingFactor" class="text-danger"></span>
+            </div>
+
+            <button type="submit" formmethod="post" class="btn btn-gradient-primary me-2">Save</button>
+            <button class="btn btn-light">Save</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,40 @@
+﻿@using System.Globalization
+@using AddResourcessF.Countrys
+
+@model CountryDTOs
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@Edit.Countrys</h4>
+        <p class="card-description">@Edit.TabelCountrys</p>
+        <form class="forms-sample"
+              method="post" enctype="multipart/form-data"
+              asp-controller="Countries" asp-action="Save" role="form">
+
+            <input asp-for="Id" type="hidden" />
+
+
+            <div class="form-group">
+                <label for="exampleInputName1">@Edit.CountryAname</label>
+                <input asp-for="CountryAname" type="text" class="form-control" id="exampleInputName1" placeholder="@Edit.CountryAname">
+                <span asp-validation-for="CountryAname" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail3">@Edit.CountryEname</label>
+                <input asp-for="CountryEname" type="text" class="form-control" id="exampleInputEmail3" placeholder="@Edit.CountryEname">
+                <span asp-validation-for="CountryEname" class="text-danger"></span>
+            </div>
+
+      
+
+            <button type="submit" formmethod="post" class="btn btn-gradient-primary me-2">@Edit.Save</button>
+            <button class="btn btn-light">@Edit.Save</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+

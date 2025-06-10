@@ -1,0 +1,36 @@
+﻿@using System.Globalization
+@using AddResourcessF.Carrier
+
+@model CarrierDtos
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@ListCarrir.Carrier</h4>
+        <p class="card-description">@ListCarrir.DataTableTitle</p>
+        <form class="forms-sample"
+              method="post" enctype="multipart/form-data"
+              asp-controller="Carrier" asp-action="Save" role="form">
+
+            <input asp-for="Id" type="hidden" />
+
+
+            <div class="form-group">
+                <label for="exampleInputName1">@ListCarrir.CarrierName</label>
+                <input asp-for="CarrierName" type="text" class="form-control" id="exampleInputName1" placeholder="@ListCarrir.CarrierName">
+                <span asp-validation-for="CarrierName" class="text-danger"></span>
+            </div>
+
+         
+
+      
+
+            <button type="submit" formmethod="post" class="btn btn-gradient-primary me-2">@ListCarrir.Save</button>
+            <button class="btn btn-light">@ListCarrir.Cansel</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,43 @@
+﻿@using System.Globalization
+@using AddResourcessF.City
+@model CityDTOs
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">@Edit.City</h4>
+        <p class="card-description">@Edit.TabeCity</p>
+        <form class="forms-sample"
+              method="post" enctype="multipart/form-data"
+              asp-controller="City" asp-action="Save" role="form">
+
+            <input asp-for="Id" type="hidden" />
+
+
+            <div class="form-group">
+                <label for="exampleInputName1">@Edit.CityAname</label>
+                <input asp-for="CityAname" type="text" class="form-control" id="exampleInputName1" placeholder="@Edit.CityAname">
+                <span asp-validation-for="CityAname" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputEmail3">@Edit.CityEname</label>
+                <input asp-for="CityEname" type="text" class="form-control" id="exampleInputEmail3" placeholder="@Edit.CityEname">
+                <span asp-validation-for="CityEname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail3">@CityList.CountryName</label>
+                <select asp-for="CountryId" class="form-control" id="exampleInputEmail3"
+                        asp-items="@(new SelectList (ViewBag.Countries ,"Id","CountryAname"))">
+
+                </select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+            <button type="submit" formmethod="post" class="btn btn-gradient-primary me-2">@Edit.Save</button>
+            <button class="btn btn-light">Cansel</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+
