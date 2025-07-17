@@ -1,4 +1,4 @@
-using Microsoft.Extensions.DependencyInjection;
+ï»¿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using DAL.Models;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +12,7 @@ using WapApi.Models;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Options;
 
 namespace WapApi
 {
@@ -21,19 +22,24 @@ namespace WapApi
         {
             var builder = WebApplication.CreateBuilder(args);
             // Add services to the container.
-
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowAll", builder =>
+                options.AddPolicy("AllowAll", policy =>
                 {
-                    builder.WithOrigins("http://localhost:5125/") // ÑÇÈØ ãÔÑæÚ ÇáÜ UI
-                           .AllowAnyHeader()
-                           .AllowAnyMethod()
-                           .AllowCredentials();
+                    policy.WithOrigins("https://localhost:7034") // ðŸ‘ˆ Your MVC project URL
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials(); // ðŸ‘ˆ Required for cookies (refresh token)
                 });
             });
+
             // 1. Configure services BEFORE build
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+             .AddJsonOptions(options =>
+             {
+                 options.JsonSerializerOptions.PropertyNamingPolicy = null;
+             });
+
             builder.Services.AddAuthorization();
             builder.Services.AddHttpClient();
 

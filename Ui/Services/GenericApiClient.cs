@@ -9,9 +9,11 @@ namespace Ui.Services
         private readonly HttpClient _httpClient;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public GenericApiClient(IHttpClientFactory clientFactory, IHttpContextAccessor httpContextAccessor)
+        public GenericApiClient(IHttpClientFactory clientFactory, IHttpContextAccessor httpContextAccessor, IConfiguration configuration)
         {
             _httpClient = clientFactory.CreateClient("ApiClient");
+            var baseUrl = configuration["ApiSettings:BaseUrl"];
+            _httpClient.BaseAddress = new Uri(baseUrl);
             _httpContextAccessor = httpContextAccessor;
         }
 

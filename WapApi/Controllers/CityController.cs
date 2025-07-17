@@ -72,7 +72,8 @@ namespace WapApi.Controllers
             }
         }
 
-        [HttpGet("GetByCountry{id}")]
+         [HttpGet("GetByCountry/{id}")]
+        //[HttpGet("GetByCountry/{CountryId}")]
         public ActionResult<ApiResponse<CityDTOs>> GetByCountry(Guid id)
         {
             try

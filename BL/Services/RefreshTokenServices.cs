@@ -23,15 +23,11 @@ namespace BL.Services
             _mapper = mapper;
         }
 
-        public RefreshTokensDTOs GetByToken(string Tokin)
-        {
-            var refreshToken = _redo.GetAll().FirstOrDefault(x => x.Token == Tokin);
-            return _mapper.Map<TbRefreshTokens, RefreshTokensDTOs>(refreshToken);
-        }
+   
 
-        public bool Refresh(RefreshTokensDTOs TokenDto)
+        public async Task< bool> Refresh(RefreshTokensDTOs TokenDto)
         {
-            var tokinList = _redo.GetList(a => a.UserId == TokenDto.UserId && a.CurrentState==1);
+            var tokinList =await _redo.GetList(a => a.UserId == TokenDto.UserId && a.CurrentState==1);
             foreach (var dbTonken in tokinList) {
                 _redo.ChangeStatus(dbTonken.Id, Guid.Parse(TokenDto.UserId), 2);  
             }

@@ -11,109 +11,85 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Serilog;
+using WapApi.Models;
 using System.Text;
 using WapApi.Models;
 
 namespace WapApi.Services
 {
-    public class RegisterServciesHelper 
+    public class RegisterServciesHelper
     {
-         public static void RegisteredServices( WebApplicationBuilder builder)
+        private readonly IConfiguration _configuration;
+
+        public RegisterServciesHelper(IConfiguration configuration)
+        {
+            // this.configuration = configuration;
+            this._configuration = configuration;
+        }
+
+
+
+        public static void RegisteredServices(WebApplicationBuilder builder)
         {
 
 
 
-            #region Instole
+        // Add MVC Controllers
+        builder.Services.AddControllers();
 
-
-            builder.Services.AddControllers();
-            var jwtSettingsSection = builder.Configuration.GetSection("JwtSettings");
-            var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
-            var key = Encoding.UTF8.GetBytes(jwtSettings.Key);
-            builder.Services.AddHttpClient();
-
-
-            // Bind JwtSettings from appsettings.json
-            builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
-
-
-
-            builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = jwtSettings.Issuer,
-                    ValidAudience = jwtSettings.Audience,
-                    IssuerSigningKey = new SymmetricSecurityKey(key)
-                };
-            });
-
-          
-
-            #endregion
-
-
-
-
-            //builder.Services.AddAuthorization(CookieAuthenticationDefaults.AuthenticationScheme
-            //    .AddC)
+            // Cookie Authentication (can be used for Admin panel)
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-      .AddCookie(options =>
-      {
-          options.LoginPath = "/login";
-          options.AccessDeniedPath = "/access-denied";
-      });
-            #region Entity Framework
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/login";
+                    options.AccessDeniedPath = "/access-denied";
+                });
 
+            // Database context
             builder.Services.AddDbContext<ShippingContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            #region Identity
-
+            #region Identity Configuration
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequiredLength = 8;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.User.RequireUniqueEmail = true;
-
-            }).AddEntityFrameworkStores<ShippingContext>();
-
+            })
+            .AddEntityFrameworkStores<ShippingContext>()
+            .AddDefaultTokenProviders();
             #endregion
+
+            #region JWT Configuration
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.SaveToken = true;
+                options.RequireHttpsMetadata = true;
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    // ValidIssuer = configuration["JWT:VaildIssure"], // If this line were active, it would also need builder.Configuration
+                    ValidateAudience = true,
+                    ValidAudience = builder.Configuration["JWT:VaildAddience"], // Corrected: Use builder.Configuration
+                                                                                //SecurityKey securityKey= new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JWT:SigningKey"]));
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:SecretKey"])) // Corrected: Use builder.Configuration
+
+                };
+
+            });
             #endregion
 
-
-            #region Sesstion and cookies
-
-            //builder.Services.ConfigureApplicationCookie(options =>
-            //{
-            //    options.LoginPath = "/Account/Login";
-
-            //    options.AccessDeniedPath = "/Account/AccessDenied";
-            //    options.Cookie.Name = "Cookie";
-            //    options.Cookie.HttpOnly = true;
-            //    options.ExpireTimeSpan = TimeSpan.FromMinutes(720);
-            //   // options.LoginPath = "/Accuent/Register";
-            //    options.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
-            //    options.SlidingExpiration = true;
-            //});
-            #endregion
-            #region lOgger Message
-
-
-            //is using Logger
+            #region Serilog Logging
             Serilog.Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
                 .WriteTo.MSSqlServer(
@@ -121,32 +97,35 @@ namespace WapApi.Services
                     tableName: "Log",
                     autoCreateSqlTable: true)
                 .CreateLogger();
+
             builder.Host.UseSerilog();
-
-
-            builder.Services.AddLogging(); 
+            builder.Services.AddLogging();
             #endregion
 
-            #region Services
+            #region Register Services
             builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
-            //builder.Services.AddScoped<IGenericRepository<TbShippingType>, DAL.Repositorys.GenericRepository<TbShippingType>>();
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped(typeof(IViewRepository<>), typeof(ViewRepository<>));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
+            // Shipment Services
             builder.Services.AddScoped<IShippmentType, ShippmentYTypeServices>();
+            builder.Services.AddScoped<IShipingPackging, ShippingPackgingServices>();
             builder.Services.AddScoped<ICairrer, CairrerServices>();
             builder.Services.AddScoped<ICity, CityServices>();
             builder.Services.AddScoped<ICountry, CountryServices>();
             builder.Services.AddScoped<IPaymentMethod, PaymentMethodServices>();
             builder.Services.AddScoped<ISetting, SettingServices>();
             builder.Services.AddScoped<IShippmentStatus, ShippmentStatusServices>();
-            //Shiping Services 
             builder.Services.AddScoped<IShippment, ShippmentServices>();
 
+            // Tracking and Rate Services
             builder.Services.AddScoped<ITrackingNumberCreator, TrackingNumberCretatorServices>();
             builder.Services.AddScoped<IRateCalculator, RateCalculatorServices>();
+
+            // User and Token Services
+            builder.Services.AddSingleton<TokinService>();
 
             builder.Services.AddScoped<ISubscriptionPackage, SubscriptionPackageServices>();
             builder.Services.AddScoped<IUserReceiver, UserReceiverServices>();
@@ -154,11 +133,10 @@ namespace WapApi.Services
             builder.Services.AddScoped<IUserSubscription, UserSubscriptionServices>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IRefreshTokens, RefreshTokenServices>();
-            builder.Services.AddSingleton<TokinService>();
-            builder.Services.AddScoped<GenericApiClient>();
+            builder.Services.AddScoped<IRefreshTokensRetriver, RefreshTokensRetriverServices>();
+          //  builder.Services.AddScoped<TokinService>(); // Your JWT service
+            builder.Services.AddScoped<GenericApiClient>(); // For calling API from UI
             #endregion
-
         }
-
     }
 }

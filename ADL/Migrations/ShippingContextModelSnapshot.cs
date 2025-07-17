@@ -479,7 +479,7 @@ namespace DAL.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<decimal>("ShippingRate")
-                        .HasColumnType("decimal(8, 4)");
+                        .HasColumnType("decimal(8,4)");
 
                     b.Property<Guid>("ShippingTypeId")
                         .HasColumnType("uniqueidentifier");

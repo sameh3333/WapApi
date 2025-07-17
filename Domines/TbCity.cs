@@ -1,6 +1,5 @@
 ﻿
 namespace Domines;
-
 public partial class TbCity : BaseTable
 {
 
@@ -19,4 +18,5 @@ public partial class TbCity : BaseTable
     public virtual ICollection<TbUserReceiver> TbUserReceivers { get; set; } = new List<TbUserReceiver>();
 
     public virtual ICollection<TbUserSender> TbUserSebders { get; set; } = new List<TbUserSender>();
+
 }

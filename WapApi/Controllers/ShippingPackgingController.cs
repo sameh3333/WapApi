@@ -11,37 +11,37 @@ namespace WapApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CountriesController : ControllerBase
+    public class ShippingPackgingController : ControllerBase
     {
 
-        ICountry _ICountry;
+        IShipingPackging _iShipingPackging;
 
-        public CountriesController(ICountry shipppingTypes)
-        { 
-            _ICountry=shipppingTypes;
+        public ShippingPackgingController(IShipingPackging iShipingPackging)
+        {
+            _iShipingPackging = iShipingPackging;
         
         }
 
         // GET: api/<ShippingTypesController>
         [HttpGet]
-        public ActionResult<ApiResponse<List<CountryDTOs>>> Get()
+        public ActionResult<ApiResponse<List<ShipingPackgingDTOs>>> Get()
         {
             try 
             {
 
-                var Data = _ICountry.GetAll();
+                var Data = _iShipingPackging.GetAll();
 
-                return Ok(ApiResponse<List<CountryDTOs>>.SuccessResponse(Data));
+                return Ok(ApiResponse<List<ShipingPackgingDTOs>>.SuccessResponse(Data));
 
             }
             catch (DataAccessException daex)
             {
-                return StatusCode(500, ApiResponse<List<CountryDTOs>>.FailResponse
+                return StatusCode(500, ApiResponse<List<ShipingPackgingDTOs>>.FailResponse
                     ("Data Access Exception ",new List<string>() { daex.Message }));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ApiResponse<List<CountryDTOs>>.FailResponse
+                return StatusCode(500, ApiResponse<List<ShipingPackgingDTOs>>.FailResponse
                     ("genale Exception ", new List<string>() { ex.Message }));
             }
 
@@ -50,24 +50,24 @@ namespace WapApi.Controllers
 
         // GET api/<ShippingTypesController>/5
         [HttpGet("{id}")]
-        public ActionResult<ApiResponse<CountryDTOs>> Get(Guid id)
+        public ActionResult<ApiResponse<ShipingPackgingDTOs>> Get(Guid id)
         {
             try
             {
 
-                var Data = _ICountry.GetById(id);
+                var Data = _iShipingPackging.GetById(id);
 
-                return Ok(ApiResponse<CountryDTOs>.SuccessResponse(Data));
+                return Ok(ApiResponse<ShipingPackgingDTOs>.SuccessResponse(Data));
 
             }
             catch (DataAccessException daex)
             {
-                return StatusCode(500, ApiResponse<CountryDTOs>.FailResponse
+                return StatusCode(500, ApiResponse<ShipingPackgingDTOs>.FailResponse
                     ("Data Access Exception ", new List<string>() { daex.Message }));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ApiResponse<CountryDTOs>.FailResponse
+                return StatusCode(500, ApiResponse<ShipingPackgingDTOs>.FailResponse
                     ("genale Exception ", new List<string>() { ex.Message }));
             }
         }

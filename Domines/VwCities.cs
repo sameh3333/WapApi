@@ -5,8 +5,6 @@ public partial class VwCities
 {
 
     public Guid Id { get; set; }
-
-
     public string? CityAname { get; set; }
 
     public string? CityEname { get; set; }

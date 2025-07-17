@@ -16,3 +16,4 @@ namespace BL.DTOs
         public IEnumerable<string > Errors { get; set; }
     }
 }
+    

@@ -12,5 +12,7 @@ namespace BL.Contracts.Shipment
     public interface IShippment : IBaseSerices<TbShippment, ShippmentDTOs>
     {
         public Task Create(ShippmentDTOs dtos);
+       public  Task<List<ShippmentDTOs>> GetShipments();
+
     }
 }

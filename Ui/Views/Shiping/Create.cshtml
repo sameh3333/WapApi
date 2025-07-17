@@ -22,7 +22,7 @@
         <h2 class="heading2-border mt0">Create New Shipping</h2>
         <div class="row">
             <div class="shipping-form-block">
-                <form class="steps" accept-charset="UTF-8" enctype="multipart/form-data">
+                <form class="steps"  accept-charset="UTF-8" enctype="multipart/form-data" novalidate="novalidate">
                     <!-- progressbar -->
                     <ul id="progressbar">
                         <li class="active">Where From</li>
@@ -41,67 +41,68 @@
                             <div class="row">
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
-                                        <label>Country<sup>*</sup></label>
-                                        <select name="country" class="form-control">
-                                            <option>United States</option>
-                                            <option>Canada</option>
-                                            <option>France</option>
-                                            <option>Germany</option>
-                                            <option>Greece</option>
+                                        <label >Country<sup>*</sup></label>
+                                        <select id="countrySelect" name="SenderCountry" class="form-control">
+                                            <option value="">Select a Country</option>
+
                                         </select>
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>Company or Name<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="cname" required="required" />
-                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+                                        <input type="text" class="form-control" name="cname" required="required" aria-required="true" aria-describedby="cname-error">
+                                        <span class="error1" style=""> <i class="error-log fa fa-exclamation-triangle"></i><span id="cname-error" class="invalid">This field is required.</span> </span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>Contact<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="contact" />
+                                        <input type="text" class="form-control" name="contact" required="required">
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12 col-lg-4">
+                                <div class="col-12 col-lg-12">
                                     <div class="form-group">
                                         <label>Address<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="address1" placeholder="Street Address" />
+                                        <input type="text" class="form-control" name="address1" placeholder="Street Address" required="required">
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-4">
-                                    <div class="form-group">
-                                        <label class="empty">&nbsp;</label>
-                                        <input type="text" class="form-control" name="address2" placeholder="Apartment, suite, unit, building, floor, etc." />
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg-4">
-                                    <div class="form-group">
-                                        <label class="empty">&nbsp;</label>
-                                        <input type="text" class="form-control" name="address3" placeholder="Department, c/o, etc." />
-                                    </div>
-                                </div>
+                             
                             </div>
                             <div class="row">
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>Postal Code<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="post" />
+                                        <input type="text" class="form-control" name="post" required="required">
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>City<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="city" />
+                                        <select name="SenderCity" class="form-control" required="required">
+                                            <option value="">Select City</option >
+
+                                        </select>
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>Other Address Information</label>
-                                        <input type="text" class="form-control" name="other-address" />
+                                        <input type="text" class="form-control" name="other-address" required="required">
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
                             </div>
@@ -110,7 +111,7 @@
                                     <div class="form-group">
                                         <label class="slide-label">Is this a residential address?</label>
                                         <div class="slide-redio">
-                                            <input type="checkbox" value="None" id="slide-radio0" name="check" checked />
+                                            <input type="checkbox" value="None" id="slide-radio0" name="check" checked="" >
                                             <label for="slide-radio0"></label>
                                         </div>
                                     </div>
@@ -120,26 +121,25 @@
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>E-mail <sup>*</sup></label>
-                                        <input type="email" class="form-control" name="email" />
+                                        <input type="email" class="form-control" name="email" required="required">
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>Telephone<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="tel" />
+                                        <input type="text" class="form-control" name="tel" required="required">
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-4">
-                                    <div class="form-group">
-                                        <label>Ext.</label>
-                                        <input type="text" class="form-control" name="ext" />
-                                    </div>
-                                </div>
+                             
                             </div>
                             <div class="row">
                                 <div class="col-12 col-lg-4">
                                     <div class="checkbox">
-                                        <input type="checkbox" name="remember" id="send-update" class="css-checkbox" />
+                                        <input type="checkbox" name="remember" id="send-update" class="css-checkbox" >
                                         <label for="send-update" class="css-label">Send updates on this shipment</label>
                                     </div>
                                 </div>
@@ -149,7 +149,7 @@
                                     <div class="form-group">
                                         <label class="slide-label">Save as new entry </label>
                                         <div class="slide-redio">
-                                            <input type="checkbox" value="None" id="slide-radio1" name="check" checked />
+                                            <input type="checkbox" value="None" id="slide-radio1" name="check" checked="" ">
                                             <label for="slide-radio1"></label>
                                         </div>
                                     </div>
@@ -158,7 +158,7 @@
                                     <div class="form-group">
                                         <label class="slide-label">Use this as my default address </label>
                                         <div class="slide-redio">
-                                            <input type="checkbox" value="None" id="slide-radio2" name="check" checked />
+                                            <input type="checkbox" value="None" id="slide-radio2" name="check" checked=""">
                                             <label for="slide-radio2"></label>
                                         </div>
                                     </div>
@@ -167,15 +167,16 @@
                                     <div class="form-group">
                                         <label class="slide-label">Add a Different Return Address</label>
                                         <div class="slide-redio">
-                                            <input type="checkbox" value="None" id="slide-radio3" name="check" checked />
+                                            <input type="checkbox" value="None" id="slide-radio3" name="check" checked="" >
                                             <label for="slide-radio3"></label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <input type="button" name="next" class="next action-button" value="Continue" />
-                        <input type="reset" name="cancel" class="action-button btn-red" value="Cancel Shipment" />
+                        @* <input type="button" name="next" class="next action-button" value="Continue"> *@
+                        <button type="button" id="btnSubmit" name="next" class="next action-button">Continue</button>
+                        <input type="reset" name="cancel" class="action-button btn-red" value="Cancel Shipment">
                     </fieldset>
                     <!-- fieldsets Shipping From end-->
                     <!-- fieldsets Shipping going Start-->
@@ -206,65 +207,67 @@
                             <div class="row">
                                 <div class="col-12 col-lg-4">
                                     <label>Country<sup>*</sup></label>
-                                    <select name="country2" class="form-control">
-                                        <option>United States</option>
-                                        <option>Canada</option>
-                                        <option>France</option>
-                                        <option>Germany</option>
-                                        <option>Greece</option>
+                                    <select id="countrySelect" name="RecivarCountry" required="required" class="form-control">
+                                        <option value="">Select a Country</option>
+
                                     </select>
+                                    <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>Company or Name<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="cname2" required="required" />
+                                        <input type="text" class="form-control" name="cname2" required="required" aria-required="true">
                                         <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>Contact<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="contact2" />
+
+                                        <input type="text" class="form-control" name="contact2" required="required">
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-12 col-lg-4">
+                                <div class="col-12 col-lg-12">
                                     <div class="form-group">
                                         <label>Address<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="address4" placeholder="Street Address" />
+                                        <input type="text" class="form-control" required="required" name="address4" placeholder="Street Address">
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-4">
-                                    <div class="form-group">
-                                        <label class="empty">&nbsp;</label>
-                                        <input type="text" class="form-control" name="address5" placeholder="Apartment, suite, unit, building, floor, etc." />
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg-4">
-                                    <div class="form-group">
-                                        <label class="empty">&nbsp;</label>
-                                        <input type="text" class="form-control" name="address6" placeholder="Department, c/o, etc." />
-                                    </div>
-                                </div>
+                               
                             </div>
                             <div class="row">
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>Zip Code<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="zip" />
+                                        <input type="text" class="form-control" name="zip" required="required">
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>City<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="city2" />
+                                        <select name="RecivarCity" required="required" class="form-control">
+                                            <option value="">Select City</option>
+
+                                        </select>
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>State<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="other-address" />
+                                        <input type="text" required="required" class="form-control" name="other-address">
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
                             </div>
@@ -272,21 +275,20 @@
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>E-mail <sup>*</sup></label>
-                                        <input type="email" class="form-control" name="email2" />
+                                        <input type="email" required="required" class="form-control" name="email2">
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
                                     <div class="form-group">
                                         <label>Telephone<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="tel2" />
+                                        <input type="text" required="required" class="form-control" name="tel2">
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-4">
-                                    <div class="form-group">
-                                        <label>Ext.</label>
-                                        <input type="text" class="form-control" name="ext2" />
-                                    </div>
-                                </div>
+                               
                             </div>
                             <div class="row">
                                 <div class="col-12">
@@ -294,9 +296,9 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="button" name="previous" class="previous action-button" value="Previous" />
-                        <input type="button" name="next" class="next action-button" value="Continue" />
-                        <input type="reset" name="cancel" class="action-button btn-red" value="Cancel Shipment" />
+                        <input type="button" name="previous" class="previous action-button" value="Previous">
+                        <input type="button" name="next" class="next action-button" value="Continue">
+                        <input type="reset" name="cancel" class="action-button btn-red" value="Cancel Shipment">
                     </fieldset>
                     <!-- fieldsets Shipping going end-->
                     <!-- fieldsets package Start-->
@@ -311,12 +313,12 @@
                                             <div class="form-group">
                                                 <label>Packaging Type<sup>*</sup></label>
                                                 <div class="input-comment">
-                                                    <select name="country2" class="form-control">
-                                                        <option>Customer packaging</option>
-                                                        <option>2kg</option>
-                                                        <option>10kg</option>
-                                                        <option>20kg</option>
+                                                    <select name="shippingPackging" required="required" class="form-control">
+                                                        <option value="">Customer packaging</option>
+                                                       
                                                     </select>
+                                                    <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -324,7 +326,7 @@
                                             <div class="form-group">
                                                 <label>Weight<sup>*</sup></label>
                                                 <div class="input-comment">
-                                                    <input type="text" class="form-control" name="weight" required="required" />
+                                                    <input type="text" class="form-control" name="weight" required="required" aria-required="true">
                                                     <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span> <span class="field-comment">lbs</span>
                                                 </div>
                                             </div>
@@ -335,7 +337,9 @@
                                             <div class="form-group">
                                                 <label>Length</label>
                                                 <div class="input-comment">
-                                                    <input type="text" class="form-control" name="length" />
+                                                    <input type="text" class="form-control" required="required" name="length">
+                                                    <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                                     <span class="field-comment">in</span>
                                                 </div>
                                             </div>
@@ -344,7 +348,9 @@
                                             <div class="form-group">
                                                 <label>Width</label>
                                                 <div class="input-comment">
-                                                    <input type="text" class="form-control" name="width" />
+                                                    <input type="text" class="form-control" required="required" name="width">
+                                                    <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                                     <span class="field-comment">in</span>
                                                 </div>
                                             </div>
@@ -355,30 +361,32 @@
                                             <div class="form-group">
                                                 <label>Height</label>
                                                 <div class="input-comment">
-                                                    <input type="text" class="form-control" name="length" />
+                                                    <input type="text" class="form-control" required="required" name="length">
+                                                    <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                                     <span class="field-comment">in</span>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 col-lg-6">
+                                       @*  <div class="col-12 col-lg-6">
                                             <div class="form-group">
                                                 <label>Declared value</label>
                                                 <div class="input-comment">
-                                                    <input type="text" class="form-control" name="width" />
+                                                    <input type="text" class="form-control" required="required" name="width">
                                                     <span class="field-comment">USD</span>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> *@
                                     </div>
                                 </div>
                                 <div class="col-12 col-lg-4">
-                                    <div class="what-package"><img src="assets/images/package.jpg" alt="" /></div>
+                                    <div class="what-package"><img src="assets/images/package.jpg" alt=""></div>
                                 </div>
                             </div>
                         </div>
-                        <input type="button" name="previous" class="previous action-button" value="Previous" />
-                        <input type="button" name="next" class="next action-button" value="Continue" />
-                        <input type="reset" name="cancel" class="action-button btn-red" value="Cancel Shipment" />
+                        <input type="button" name="previous" class="previous action-button" value="Previous">
+                        <input type="button" name="next" class="next action-button" value="Continue">
+                        <input type="reset" name="cancel" class="action-button btn-red" value="Cancel Shipment">
                     </fieldset>
                     <!-- fieldsets package end-->
                     <!-- fieldsets pick up Start-->
@@ -399,7 +407,9 @@
                                             <div class="form-group">
                                                 <label>Dropoff date:</label>
                                                 <div class="datepicker-group">
-                                                    <input type="text" class="form-control datetimepicker1" placeholder="Date" />
+                                                    <input type="text" required="required" class="form-control datetimepicker1" name="delivryDate" placeholder="Date">
+                                                    <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                                     <div class="datepicker-icon"><i class="fa fa-calendar-alt"></i></div>
                                                 </div>
                                             </div>
@@ -410,7 +420,19 @@
                                         <div class="col-12 col-lg-4">
                                             <div class="form-group">
                                                 <label>Date and short details:</label>
-                                                <input type="text" class="form-control" name="sDetails" />
+                                                <input type="text" class="form-control" required="required" @* name="delivryDate" *@>
+                                                <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-4">
+                                            <div class="form-group">
+                                                <label>Shipment Types</label>
+                                                <select name="ShipmentTypes" required="required" class="form-control">
+                                                    <option value="">Select a Shipment Types</option>
+                                                </select>
+                                                <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                             </div>
                                         </div>
                                     </div>
@@ -421,7 +443,9 @@
                                             <div class="form-group">
                                                 <label>Pickup date:</label>
                                                 <div class="datepicker-group">
-                                                    <input type="text" class="form-control datetimepicker1" placeholder="Date" />
+                                                    <input required="required" type="text" class="form-control datetimepicker1" placeholder="Date">
+                                                    <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                                     <div class="datepicker-icon"><i class="fa fa-calendar-alt"></i></div>
                                                 </div>
                                             </div>
@@ -444,9 +468,9 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="button" name="previous" class="previous action-button" value="Previous" />
-                        <input type="button" name="next" class="next action-button" value="Continue" />
-                        <input type="reset" name="cancel" class="action-button btn-red" value="Cancel Shipment" />
+                        <input type="button" name="previous" class="previous action-button" value="Previous">
+                        <input type="button" name="next" class="next action-button" value="Continue">
+                        <input type="reset" name="cancel" class="action-button btn-red" value="Cancel Shipment">
                     </fieldset>
                     <!-- fieldsets package end-->
                     <!-- fieldsets payment Start-->
@@ -458,16 +482,18 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-4">
                                         <label>Card Type<sup>*</sup></label>
-                                        <select name="cardType" class="form-control">
+                                        <select name="cardType" required="required" class="form-control">
                                             <option>Select One</option>
                                             <option>Paypal</option>
                                             <option>Visa</option>
                                             <option>Master</option>
                                             <option>American express</option>
                                         </select>
+                                        <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
+
                                     </div>
                                     <div class="col-12 col-lg-4">
-                                        <div class="we-accept"> <img src="assets/images/card-paypal.png" alt="" /> <img src="assets/images/card-visa.png" alt="" /> <img src="assets/images/card-master.png" alt="" /> <img src="assets/images/card-discover.png" alt="" /> <img src="assets/images/card-amex.png" alt="" /> </div>
+                                        <div class="we-accept"> <img src="assets/images/card-paypal.png" alt=""> <img src="assets/images/card-visa.png" alt=""> <img src="assets/images/card-master.png" alt=""> <img src="assets/images/card-discover.png" alt=""> <img src="assets/images/card-amex.png" alt=""> </div>
                                     </div>
                                 </div>
                             </div>
@@ -475,7 +501,7 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-4">
                                         <label>Card Number<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="address1" placeholder="Street Address" required="required" />
+                                        <input type="text" class="form-control" name="address1" placeholder="Street Address" required="required" aria-required="true">
                                         <span class="error1" style="display: none;"> <i class="error-log fa fa-exclamation-triangle"></i> </span>
                                     </div>
                                 </div>
@@ -484,7 +510,7 @@
                                 <div class="row">
                                     <div class="col-12 col-lg-4">
                                         <label>Exparation<sup>*</sup></label>
-                                        <select name="exparation" class="form-control">
+                                        <select name="exparation" required="required" class="form-control">
                                             <option>Select Month</option>
                                             <option>January</option>
                                             <option>February</option>
@@ -493,7 +519,7 @@
                                     </div>
                                     <div class="col-12 col-lg-4">
                                         <label class="empty">&nbsp;</label>
-                                        <select name="exparation2" class="form-control">
+                                        <select name="exparation2" required="required" class="form-control">
                                             <option>Select Year</option>
                                             <option>January</option>
                                             <option>February</option>
@@ -502,7 +528,7 @@
                                     </div>
                                     <div class="col-12 col-lg-4">
                                         <label>CVV<sup>*</sup></label>
-                                        <input type="text" class="form-control" name="other-address" />
+                                        <input type="text" class="form-control" required="required" name="other-address">
                                     </div>
                                 </div>
                             </div>
@@ -511,7 +537,7 @@
                                     <div class="col-12 col-lg-4">
                                         <label class="slide-label">Billing Address</label>
                                         <div class="checkbox">
-                                            <input type="checkbox" name="remember" id="same-bill" class="css-checkbox" />
+                                            <input type="checkbox" name="remember" id="same-bill" class="css-checkbox">
                                             <label for="same-bill" class="css-label">Send updates on this shipment</label>
                                         </div>
                                     </div>
@@ -524,16 +550,16 @@
                                     <div class="col-12 col-lg-4">
                                         <label class="slide-label">Use a promo code?</label>
                                         <div class="slide-redio">
-                                            <input type="checkbox" value="None" id="slide-radio4" name="check" checked />
+                                            <input type="checkbox" value="None" id="slide-radio4" name="check" checked="">
                                             <label for="slide-radio4"></label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <input type="button" name="previous" class="previous action-button" value="Previous" />
-                        <input type="button" name="next" class="next action-button" value="Continue" />
-                        <input type="reset" name="cancel" class="action-button btn-red" value="Cancel Shipment" />
+                        <input type="button" name="previous" class="previous action-button" value="Previous">
+                        <input type="button" name="next" class="next action-button" value="Continue">
+                        <input type="reset" name="cancel" class="action-button btn-red" value="Cancel Shipment">
                     </fieldset>
                     <!-- fieldsets payment Start-->
                     <!-- fieldsets Review Start-->
@@ -605,28 +631,39 @@
                                 <p>Receive Company name</p>
                                 <h5>Enter Promo Code:</h5>
                                 <div class="promoCode-input">
-                                    <input type="text" class="form-control" name="sDetails" />
+                                    <input type="text" class="form-control" name="sDetails">
                                 </div>
                             </div>
                             <div class="review">
                                 <div class="checkbox">
-                                    <input type="checkbox" name="remember" id="trems" class="css-checkbox" />
+                                    <input type="checkbox" name="remember" id="trems" class="css-checkbox">
                                     <label for="trems" class="css-label">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</label>
                                 </div>
                             </div>
                         </div>
-                        <input type="button" name="previous" class="previous action-button" value="Previous" />
-                        <input type="button" name="next" class="next action-button" value="Continue" />
+                        <input type="button" name="previous" class="previous action-button" value="Previous">
+                        <input type="button" name="next" class="next action-button" value="Continue">
                     </fieldset>
                     <!-- fieldsets payment Start-->
                     <fieldset>
                         <div class="shipping-form">
                             <h1 class="tanks-message">Thank You For Create Shipping</h1>
                         </div>
-                        <input type="submit" name="submit" class="submit action-button" value="Submit" />
+                        <input type="submit" id="SaveShipment" name="submit" class="submit action-button" value="Submit">
                     </fieldset>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/modules/apphelper.js"></script>
+    <script src="~/modules/apiclient.js"></script>
+    <script src="~/modules/countryservices.js"></script>
+    <script src="~/modules/CityServices.js"></script>
+    <script src="~/modules/shippingpackgingservices.js"></script>
+    <script src="~/modules/shippingtypesservices.js"></script>
+    <script src="~/modules/shipmentservices.js"></script>
+   
+}

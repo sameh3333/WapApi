@@ -17,7 +17,7 @@ namespace DAL.Contracts
 
 
         T GetFirstOrDefault(Expression<Func<T, bool>> filter);
-        List<T> GetList(Expression<Func<T, bool>> filter);
+        Task<List<T>> GetList(Expression<Func<T, bool>> filter);
 
 
 

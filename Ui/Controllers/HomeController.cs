@@ -99,7 +99,7 @@ namespace Ui.Controllers
         public IActionResult Index()
         {
 
-            ShipmientTest();
+           // ShipmientTest();
             var data= _shippmnt.GetAll();
             
             return View();

@@ -30,7 +30,7 @@ public partial class TbShippment :BaseTable
     public Guid? UserSubscriptionId { get; set; }
 
     public double? TrackingNumber { get; set; }
-
+     
     public Guid? ReferenceId { get; set; }
 
    

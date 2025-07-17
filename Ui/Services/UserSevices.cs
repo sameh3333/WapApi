@@ -36,29 +36,23 @@ public class UserService : IUserService
         ,LastName=registerDto.LastName,Phone=registerDto.Phone};
         
         var result = await _userManager.CreateAsync(user, registerDto.Password);
-        if (!result.Succeeded)
-        {
-            return new UserRegusterDto
-            {
-                Success = false,
-                Errors = result.Errors?.Select(e => e.Description)
-
-            };
-        }
-
-      //  var rolerName = (string.IsNullOrEmpty(registerDto.Role)? "User":registerDto.Role);
         var rolerName = string.IsNullOrEmpty(registerDto.Role) ? "User" : registerDto.Role;
         var roleResult = await _userManager.AddToRoleAsync(user, rolerName);
-
         if (!roleResult.Succeeded)
         {
             return new UserRegusterDto
             {
+
                 Success = false,
-                Errors = roleResult.Errors?.Select(e => e.Description)
-                                      
-            };
+                Errors = result.Errors?.Select(e => e.Description)
+
+            };  
         }
+
+      //  var rolerName = (string.IsNullOrEmpty(registerDto.Role)? "User":registerDto.Role);
+    
+
+      
          
 
         return new UserRegusterDto
@@ -144,7 +138,7 @@ public class UserService : IUserService
     }
 
     public Guid GetLoggedInServices()
-    {
+    { 
         var userId = _IHttpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
         return Guid.Parse(userId);
     }

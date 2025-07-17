@@ -18,6 +18,8 @@ namespace BL.DTOs
         public string Phone { get; set; } = null!;
         public string PostalCode { get; set; }
         public string Contact { get; set; } = null!;
+        public bool IsDefalte { get; set; }
+
         public string OtherAddress { get; set; } = null!;
         public Guid CityId { get; set; }
 

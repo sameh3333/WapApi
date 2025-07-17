@@ -13,20 +13,19 @@ namespace WapApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-      
         private readonly TokinService _tokenService;
         private readonly IUserService _userService;
         private readonly IRefreshTokens _refreshTokens;
+        private readonly IRefreshTokensRetriver _refreshTokensRetriver;
         public AuthController(
-            
             TokinService tokenService,
            IUserService userService,
-         IRefreshTokens refreshTokens)
+         IRefreshTokensRetriver refreshTokens)
         {
             
-            _tokenService = tokenService;
+          _tokenService = tokenService;
             _userService = userService;
-            _refreshTokens = refreshTokens;
+            _refreshTokensRetriver = refreshTokens;
         }
 
         [HttpPost("register")]
@@ -67,7 +66,6 @@ namespace WapApi.Controllers
                 CurrentState = 1
             };
 
-            
 
             // Save refreshToken to cookie
             Response.Cookies.Append("refreshToken", refreshToken, new CookieOptions
@@ -93,7 +91,7 @@ namespace WapApi.Controllers
             // TODO: Verify refreshToken from DB and get user
 
             // Simulated user for example:
-            var storedToken = _refreshTokens.GetByToken(refreshToken);
+            var storedToken = _refreshTokensRetriver.GetByToken(refreshToken);
             if (storedToken == null||storedToken.CurrentState==2|| storedToken.ExpiryDate<DateTime.UtcNow)
                 return Unauthorized("Invaild Or Expried Refrach token  ");
 
@@ -114,7 +112,7 @@ namespace WapApi.Controllers
                 return Unauthorized("Refresh token is missing");
             }
             // TODO: Verify refreshToken from DB and get user
-            var storedToken = _refreshTokens.GetByToken(refreshToken);
+            var storedToken = _refreshTokensRetriver.GetByToken(refreshToken);
             if (storedToken == null || storedToken.CurrentState == 2 || storedToken.ExpiryDate < DateTime.UtcNow)
                 return Unauthorized("Invaild Or Expried Refrach token  ");
 

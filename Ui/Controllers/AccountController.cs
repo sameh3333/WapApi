@@ -1,13 +1,9 @@
 ﻿using Azure;
-using Azure.Core;
 using BL.Contracts;
 using BL.DTOs;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.IdentityModel.Tokens;
-using System.Diagnostics.Eventing.Reader;
+
 using Ui.Models;
 using Ui.Services;
 namespace Ui.Controllers
@@ -32,7 +28,6 @@ namespace Ui.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> Login(LoginDtos user)
         {
             try
@@ -62,18 +57,23 @@ namespace Ui.Controllers
                         SameSite = SameSiteMode.Strict,
                         Expires = DateTime.UtcNow.AddHours(1)
                     });
+                    Response.Cookies.Append("RefreshToken", apiResulte?.RefeshToken, new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = true,
+                        SameSite = SameSiteMode.Strict,
+                        Expires = DateTime.UtcNow.AddDays(7)
+                    });
                     var dbuser=await _userServices.GetUserByEmailAsync(user.Email);
                     if (dbuser.Role.ToLower() == "admin") 
                         return RedirectToAction("Index", "Home", new { area = "admin" });
                     else
                         return RedirectToAction("Index", "Home");
 
-
                 }
                 else
                 {
                     return View();
-
                 }
             }
             catch (Exception ex)
@@ -89,7 +89,7 @@ namespace Ui.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken] 
         public async Task<IActionResult> Register(UserDto registerDto)
        {
             if (!ModelState.IsValid)

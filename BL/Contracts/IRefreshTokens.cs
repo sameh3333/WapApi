@@ -10,8 +10,7 @@ namespace BL.Contracts
 {
     public  interface IRefreshTokens : IBaseSerices<TbRefreshTokens,RefreshTokensDTOs>
     {
-       public  RefreshTokensDTOs GetByToken(string Tokin);
-        public bool Refresh(RefreshTokensDTOs TokenDto);
+        public Task<bool> Refresh(RefreshTokensDTOs TokenDto);
 
 
 

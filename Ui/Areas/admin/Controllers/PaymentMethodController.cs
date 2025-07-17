@@ -25,7 +25,7 @@ namespace Ui.Areas.admin.Controllers
         }
         public IActionResult Edit(Guid? Id)
         {
-            var data = new BL.DTOs.PaymentMethodDTOs();
+            var data = new BL.DTOs.ShipingPackgingDTOs();
             if (Id != null)
                 data = _paymendMethod.GetById((Guid)Id);
             return View(data);
@@ -33,7 +33,7 @@ namespace Ui.Areas.admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Save(PaymentMethodDTOs data)
+        public async Task<IActionResult> Save(ShipingPackgingDTOs data)
         {
             TempData["MessageType"] = null;
             if (!ModelState.IsValid)

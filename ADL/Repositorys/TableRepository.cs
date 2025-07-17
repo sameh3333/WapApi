@@ -146,7 +146,7 @@ namespace DAL.Repositorys
             }
         }
 
-        public List<T> GetList(Expression<Func<T, bool>> filter)
+        public async Task< List<T>> GetList(Expression<Func<T, bool>> filter)
         {
             try
             {
@@ -161,4 +161,8 @@ namespace DAL.Repositorys
 
 
 }
+
+
+
+
 

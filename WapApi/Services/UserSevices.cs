@@ -12,12 +12,15 @@ public class UserService : IUserService
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly SignInManager<ApplicationUser> _signInManager;
     private readonly IHttpContextAccessor _IHttpContextAccessor;
+    private readonly IRefreshTokensRetriver _IRefreshTokens;        
 
-    public UserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IHttpContextAccessor iHttpContextAccessor)
+    public UserService(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, 
+        IHttpContextAccessor iHttpContextAccessor, IRefreshTokensRetriver iRefreshTokens)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _IHttpContextAccessor = iHttpContextAccessor;
+        _IRefreshTokens = iRefreshTokens;
     }
 
     public async Task<UserRegusterDto> RegisterAsync(UserDto registerDto)
@@ -94,10 +97,13 @@ public class UserService : IUserService
             Email=u.Email,
         });
 
+
     }
     public Guid GetLoggedInServices()
     {
-        var userId = _IHttpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-        return Guid.Parse(userId);
+        var refarshtoken = _IHttpContextAccessor.HttpContext?.Request.Cookies["RefreshToken"];
+       // var userId = _IHttpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+       var refrsshToken = _IRefreshTokens.GetByToken(refarshtoken);
+        return Guid.Parse(refrsshToken.UserId);
     }
 }

@@ -24,24 +24,24 @@ namespace WapApi.Controllers
 
         // GET: api/<ShippingTypesController>
         [HttpGet]
-        public ActionResult<ApiResponse<List<PaymentMethodDTOs>>> Get()
+        public ActionResult<ApiResponse<List<ShipingPackgingDTOs>>> Get()
         {
             try 
             {
 
                 var Data = _IPaymentMethod.GetAll();
 
-                return Ok(ApiResponse<List<PaymentMethodDTOs>>.SuccessResponse(Data));
+                return Ok(ApiResponse<List<ShipingPackgingDTOs>>.SuccessResponse(Data));
 
             }
             catch (DataAccessException daex)
             {
-                return StatusCode(500, ApiResponse<List<PaymentMethodDTOs>>.FailResponse
+                return StatusCode(500, ApiResponse<List<ShipingPackgingDTOs>>.FailResponse
                     ("Data Access Exception ",new List<string>() { daex.Message }));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ApiResponse<List<PaymentMethodDTOs>>.FailResponse
+                return StatusCode(500, ApiResponse<List<ShipingPackgingDTOs>>.FailResponse
                     ("genale Exception ", new List<string>() { ex.Message }));
             }
 
@@ -50,24 +50,24 @@ namespace WapApi.Controllers
 
         // GET api/<ShippingTypesController>/5
         [HttpGet("{id}")]
-        public ActionResult<ApiResponse<PaymentMethodDTOs>> Get(Guid id)
+        public ActionResult<ApiResponse<ShipingPackgingDTOs>> Get(Guid id)
         {
             try
             {
 
                 var Data = _IPaymentMethod.GetById(id);
 
-                return Ok(ApiResponse<PaymentMethodDTOs>.SuccessResponse(Data));
+                return Ok(ApiResponse<ShipingPackgingDTOs>.SuccessResponse(Data));
 
             }
             catch (DataAccessException daex)
             {
-                return StatusCode(500, ApiResponse<PaymentMethodDTOs>.FailResponse
+                return StatusCode(500, ApiResponse<ShipingPackgingDTOs>.FailResponse
                     ("Data Access Exception ", new List<string>() { daex.Message }));
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ApiResponse<PaymentMethodDTOs>.FailResponse
+                return StatusCode(500, ApiResponse<ShipingPackgingDTOs>.FailResponse
                     ("genale Exception ", new List<string>() { ex.Message }));
             }
         }

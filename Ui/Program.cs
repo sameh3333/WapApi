@@ -5,15 +5,16 @@ using DAL.Contracts;
 using DAL.Models;
 using DAL.Repositorys;
 using Domines;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileSystemGlobbing.Internal;
 using Microsoft.Extensions.FileSystemGlobbing.Internal.Patterns;
 using Serilog;
-using System.Collections.Generic;
 using System;
-using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using Ui.Services;
+using WapApi.Models;
 
 namespace Ui
 {
@@ -25,16 +26,17 @@ namespace Ui
 
 
             var builder = WebApplication.CreateBuilder(args);
+
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowAll", builder =>
+                options.AddPolicy("AllowAll", policy =>
                 {
-                    builder.WithOrigins("http://localhost:5125/") // —«»ÿ „‘—Ê⁄ «·‹ UI
-                           .AllowAnyHeader()
-                           .AllowAnyMethod()
-                           .AllowCredentials();
+                    policy.WithOrigins("https://localhost:7034")
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
                 });
             });
+
 
             builder.Services.AddControllersWithViews();
           
@@ -93,13 +95,16 @@ namespace Ui
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                var userManger = services.GetRequiredService<UserManager<ApplicationUser>>();
-                var rloeManger = services.GetRequiredService<RoleManager<IdentityRole>>();
-                var dbContxt = services.GetRequiredService<ShippingContext>();
-                await dbContxt.Database.MigrateAsync();
-                await ContextConfig.SeedDataAsync(dbContxt, userManger, rloeManger);
+                var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+                var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                var dbContext = services.GetRequiredService<ShippingContext>();
+
+                // Apply migrations
+                await dbContext.Database.MigrateAsync();
+
+                // Seed data
+                await ContextConfig.SeedDataAsync(dbContext, userManager, roleManager);
             }
-            await app.RunAsync();
 
             app.Run();
         }

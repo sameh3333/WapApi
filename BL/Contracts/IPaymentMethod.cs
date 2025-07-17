@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BL.Contracts
 {
-    public interface IPaymentMethod : IBaseSerices< TbPaymentMethod,PaymentMethodDTOs>
+    public interface IPaymentMethod : IBaseSerices< TbPaymentMethod,ShipingPackgingDTOs>
     {
     }
 }

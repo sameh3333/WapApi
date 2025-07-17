@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BL.Services
 {
-    public class PaymentMethodServices : BaseServices<TbPaymentMethod, PaymentMethodDTOs>, IPaymentMethod
+    public class PaymentMethodServices : BaseServices<TbPaymentMethod, ShipingPackgingDTOs>, IPaymentMethod
     {
         public PaymentMethodServices(IGenericRepository<TbPaymentMethod> redo, IMapper mapper, IUserService userService) : base(redo, mapper,userService    )
         {

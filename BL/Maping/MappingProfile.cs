@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BL.Contracts;
 using BL.DTOs;
 using Domines;
 using System;
@@ -17,7 +18,7 @@ namespace BL.Maping
             CreateMap<TbCity,CityDTOs>().ReverseMap();
             CreateMap<VwCities, CityDTOs>().ReverseMap();
             CreateMap<TbCountry,CountryDTOs>(). ReverseMap();
-            CreateMap<TbPaymentMethod,PaymentMethodDTOs>().ReverseMap();
+            CreateMap<TbPaymentMethod, PaymentMethodDTOs>().ReverseMap();
             CreateMap<TbSetting,SettingDTOs>().ReverseMap();
             CreateMap<TbShippingType,ShippingTypeDTOs>().ReverseMap();  
             CreateMap<TbShippment, ShippmentDTOs>().ReverseMap();    
@@ -27,6 +28,8 @@ namespace BL.Maping
             CreateMap<TbUserReceiver,UserReceiverDtos>().ReverseMap();
             CreateMap<TbUserSubscription, UserSubscriptionDTOs>().ReverseMap();  
             CreateMap<TbRefreshTokens, RefreshTokensDTOs>().ReverseMap();
+            CreateMap<TbShipingPackging, ShipingPackgingDTOs>().ReverseMap();
+
         }
     }
 }

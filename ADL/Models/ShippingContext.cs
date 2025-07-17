@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Models;
 
-public partial class ShippingContext :IdentityDbContext<ApplicationUser>
+public partial class ShippingContext : IdentityDbContext< ApplicationUser >
 {
     public ShippingContext()
     {
@@ -15,6 +15,7 @@ public partial class ShippingContext :IdentityDbContext<ApplicationUser>
     public ShippingContext(DbContextOptions<ShippingContext> options)
         : base(options)
     {
+
     }
 
 
@@ -51,7 +52,7 @@ public partial class ShippingContext :IdentityDbContext<ApplicationUser>
 
         if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=ShippingDB;Trusted_Connection=true;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Shipping;Trusted_Connection=true;MultipleActiveResultSets=true");
         }
     }
 
@@ -233,13 +234,11 @@ public partial class ShippingContext :IdentityDbContext<ApplicationUser>
             entity.Property(e => e.Phone).HasMaxLength(200);
             entity.Property(e => e.ReceiverName).HasMaxLength(200);
             entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
-
             entity.HasOne(d => d.City).WithMany(p => p.TbUserReceivers)
                 .HasForeignKey(d => d.CityId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TbUserReceivers_TbCities");
         });
-            
         modelBuilder.Entity<TbUserSender>(entity =>
         {
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
@@ -267,7 +266,9 @@ public partial class ShippingContext :IdentityDbContext<ApplicationUser>
                 .HasForeignKey(d => d.PackageId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TbUserSubscriptions_TbSubscriptionPackages");
+    
         });
+        
         //join VIEW Cites 
 
         modelBuilder.Entity<VwCities>().ToView("VwCites");
